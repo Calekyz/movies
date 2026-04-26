@@ -1,78 +1,107 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>ReactJS - TMDb Movie Search</title>
-  <meta name="description" content="ReactJS TMDb Movie Search - A responsive web app to search movie information and artwork via The Movie Database (TMDb) API. Built on Facebook's ReactJS framework.">
-  <meta name="viewport" content="width=device-width">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ReactJS - TMDb Movie Search" />
-  <meta name="twitter:description" content="Search movie information and artwork via The Movie Database (TMDb) API." />
-  <meta name="twitter:image" content="images/twitter_card.jpg">
-  <meta property="og:title" content="ReactJS TMDb Movie Search"/>
-  <meta property="og:description" content="ReactJS TMDb Movie Search - A responsive web app to search movie information and artwork via The Movie Database (TMDb) API. Built on Facebook's ReactJS framework."/>
-  <meta property="og:url" content="https://skempin.github.io/reactjs-tmdb-app/"/>
-  <meta property="og:image" content="https://skempin.github.io/reactjs-tmdb-app/images/facebook_graph.jpg"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="Stephen Kempin - Github"/>
-  <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,700|Oswald:300" rel="stylesheet">
-  <link rel="stylesheet" href="styles/main.css">
-  <link rel="icon" href="images/favicon.png">
-  <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaScope | Discover Movies</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-  <a href="https://github.com/SKempin/reactjs-tmdb-app" onclick="ga('send', 'event', 'link', 'external', 'Fork on Github ribbon')"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub"></a>
-  <div id="outer-container">
-    <!--[if lt IE 10]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-lg-10 offset-lg-1">
-          <div id="app"></div>
-          <footer>
-            <span><a href="http://www.stephenkempin.co.uk/" rel="author" onclick="ga('send', 'event', 'link', 'external', 'Portfolio')">Designed &amp; developed by Stephen Kempin</a> </span>
-            <span><a href="https://github.com/SKempin/reactjs-tmdb-app" title="View Github Repo"><i class="icon ion-social-github" aria-hidden="true" onclick="ga('send', 'event', 'link', 'external', 'View Code')"></i>View Code</a></span>
-            <span><a href="https://play.google.com/store/apps/developer?id=SK+-+UK" title="View SK-UK Google Play Store" onclick="ga('send', 'event', 'link', 'external', 'SK-UK Google Play')"><i class="icon ion-social-android" aria-hidden="true"></i>Developer Google Play Store</a></span>
-            <span><a href="https://apps.apple.com/gb/developer/stephen-kempin/id1451415928" title="View SK-UK Apple App Store" onclick="ga('send', 'event', 'link', 'external', 'SK-UK Apple App Store')"><i class="icon ion-social-apple" aria-hidden="true"></i>Developer Apple App Store</a></span>
-          </footer>
+    <div class="app-container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-film"></i>
+                    <span>Cinema<span class="highlight">Scope</span></span>
+                </div>
+                <div class="nav-links">
+                    <button class="nav-btn active" data-category="popular">
+                        <i class="fas fa-fire"></i> Popular
+                    </button>
+                    <button class="nav-btn" data-category="now_playing">
+                        <i class="fas fa-ticket-alt"></i> Now Playing
+                    </button>
+                    <button class="nav-btn" data-category="top_rated">
+                        <i class="fas fa-star"></i> Top Rated
+                    </button>
+                    <button class="nav-btn" data-category="upcoming">
+                        <i class="fas fa-calendar"></i> Upcoming
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Search Section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <i class="fas fa-search"></i> Discover Your Next Favorite Movie
+                </h1>
+                <p class="hero-subtitle">Search through thousands of movies, get detailed info, ratings, and more</p>
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search for a movie... (e.g., Inception, Avengers, Titanic)">
+                        <button id="searchBtn" class="search-btn">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!-- Category Section -->
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fas fa-fire" id="sectionIcon"></i>
+                    <h2 id="sectionTitle">Popular Movies</h2>
+                </div>
+                <div class="section-controls">
+                    <span class="movie-count" id="movieCount"></span>
+                </div>
+            </div>
+
+            <!-- Movies Grid -->
+            <div class="movies-grid" id="moviesGrid">
+                <!-- Movie cards will be injected here -->
+                <div class="loading">
+                    <div class="loader"></div>
+                    <p>Loading amazing movies...</p>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button class="page-btn" id="prevPage" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div class="page-numbers" id="pageNumbers">
+                    <span class="page-info">Page <span id="currentPage">1</span></span>
+                </div>
+                <button class="page-btn" id="nextPage">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- build:js(app/..) scripts/vendor.js -->
-  <!-- bower:js -->
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>
-  <!-- endbower -->
-  <!-- endbuild -->
-  <script src="scripts/app.js"></script>
-  <!-- Google Analytics -->
-  <script>
-    (function(i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r;
-      i[r] = i[r] || function() {
-        (i[r].q = i[r].q || []).push(arguments)
-      }, i[r].l = 1 * new Date();
-      a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
-      a.async = 1;
-      a.src = g;
-      m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    <!-- Movie Modal -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content injected here -->
+            </div>
+        </div>
+    </div>
 
-    ga('create', 'UA-90453555-1', 'auto');
-    ga('send', 'pageview');
-  </script>
+    <script src="script.js"></script>
 </body>
-
 </html>
